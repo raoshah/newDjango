@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-9#4_i#pxy85$b#82!6w8v$@+ykqaxtk$l+n$(e*r%t)&b-=5**
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['jangoji.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['jangooji.onrender.com', 'localhost', '127.0.0.1']
 
 
 # Application definition

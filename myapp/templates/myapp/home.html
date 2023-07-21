@@ -6,6 +6,13 @@
     <title>home</title>
 </head>
 <body>
-    <h1>hello</h1>
+    <h1>welcome</h1>
+    
+    {% for po in post %}
+    <p>{{ po.comment }}</p> 
+
+    by {{ po.name }}
+    {{ po.id }}
+    {% endfor %}
 </body>
 </html>

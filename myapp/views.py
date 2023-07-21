@@ -1,5 +1,8 @@
 from django.shortcuts import render
-
+from .models import Post
 
 def home(request):
-    return render(request, "myapp/home.html")
+    post = Post.objects.all()
+    return render(request, "myapp/home.html", {
+        "post": post
+    })

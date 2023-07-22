@@ -1,18 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>home</title>
-</head>
-<body>
-    <h1>welcome</h1>
-    
-    {% for po in post %}
-    <p>{{ po.comment }}</p> 
+{% extends 'myapp/layout.html' %}
 
-    by {{ po.name }}
-    {{ po.id }}
-    {% endfor %}
-</body>
-</html>
+{% block title %}Homepage{% endblock %}
+
+
+{% block body %}
+    <br><br>
+
+
+<!-- {% for video in videos %}
+<h3>{{ video.title }}</h3>
+<div id="video-container">
+    <iframe src="https://www.youtube.com/embed/{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<form action="/delete/{{ video.id }}">
+    <button type="submit">Delete</button>
+</form>
+<hr style="padding: 3px;"> -->
+
+<h1>hello</h1>
+{% endfor %}
+
+
+
+<h1>jjjj</h1>
+{{ p }}
+<a href="/youtube">add</a>
+{% endblock %}

@@ -7,22 +7,31 @@
     <br><br>
 
 
-<!-- {% for video in videos %}
+{% for video in videos %}
 <h3>{{ video.title }}</h3>
 <div id="video-container">
     <iframe src="https://www.youtube.com/embed/{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
-<form action="/delete/{{ video.id }}">
+<!-- <form action="/delete/{{ video.id }}">
     <button type="submit">Delete</button>
-</form>
-<hr style="padding: 3px;"> -->
+</form> -->
+<hr style="padding: 3px;">
 
-<h1>hello</h1>
+
 {% endfor %}
 
 
-
+<!-- 
 <h1>jjjj</h1>
 {{ p }}
-<a href="/youtube">add</a>
+<a href="/youtube">add</a> -->
+
+
+<!-- <h1>{{z.que}}</h1>
+<h3>{{z.a}}</h3>
+<h3>{{z.b}}</h3>
+<h3>{{z.c}}</h3>
+<h3>{{z.d}}</h3>
+
+{{q}} -->
 {% endblock %}

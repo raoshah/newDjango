@@ -1,0 +1,21 @@
+{% extends 'myapp/layout.html' %}
+
+{% block title %}Question{% endblock %}
+
+
+{% block body %}
+<br>
+<br>
+
+{% for video in videos %}
+<h3>{{ video.title }}</h3>
+<div id="video-container">
+    <iframe src="https://www.youtube.com/embed/{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</div>
+<!-- <form action="/delete/{{ video.id }}">
+    <button type="submit">Delete</button>
+</form> -->
+<hr style="padding: 3px;">
+{% endfor %}
+
+{% endblock %}

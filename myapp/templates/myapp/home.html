@@ -5,33 +5,49 @@
 
 {% block body %}
     <br><br>
+    <h3>Objective Questions</h3>
+    <form action="/react/{{z}}" method="post">
+        {% csrf_token %}
+        <p style="background-color: cornsilk;">Question No.{{ a.id }}</p>
+        <h4 style="background-color: whitesmoke; font-size: large;">{{ a.que }}</h4>
+        <div class="options-container">
+            <div class="column">
+                <label>
+                    <input type="radio" name="a" value="{{a.a}}">
+                    {{a.a}}
+                </label>
+                <label>
+                    <input type="radio" name="a" value="{{a.b}}">
+                    {{a.b}}
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="radio" name="a" value="{{a.c}}">
+                    {{a.c}}
+                </label>
+                <label>
+                    <input type="radio" name="a" value="{{a.d}}">
+                    {{a.d}}
+                </label>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
+    
+
+    <h3>Posts</h3>
+    {% for posts in post %}
+    
+    <a style="text-decoration: none;" href="/post/{{posts.id}}"><div class="post">
+        <h2>{{ posts.name }}</h2>
+    </div></a>
+    {% endfor %}
+    
 
 
-{% for video in videos %}
-<h3>{{ video.title }}</h3>
-<div id="video-container">
-    <iframe src="https://www.youtube.com/embed/{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-</div>
-<!-- <form action="/delete/{{ video.id }}">
-    <button type="submit">Delete</button>
-</form> -->
-<hr style="padding: 3px;">
 
 
-{% endfor %}
 
 
-<!-- 
-<h1>jjjj</h1>
-{{ p }}
-<a href="/youtube">add</a> -->
-
-
-<!-- <h1>{{z.que}}</h1>
-<h3>{{z.a}}</h3>
-<h3>{{z.b}}</h3>
-<h3>{{z.c}}</h3>
-<h3>{{z.d}}</h3>
-
-{{q}} -->
 {% endblock %}

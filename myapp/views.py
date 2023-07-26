@@ -55,3 +55,5 @@ def post(request, post_id):
     return render(request, "myapp/post.html", { "post": p, "posts": post })
 
 
+def about(request):
+    return render(request, "myapp/about.html")

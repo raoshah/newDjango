@@ -6,16 +6,16 @@
 {% block body %}
 <br>
 <br>
-
+<h3>My Youtube Videos</h3>
 {% for video in videos %}
-<h3>{{ video.title }}</h3>
+<p>{{ video.title }}</p>
 <div id="video-container">
     <iframe src="https://www.youtube.com/embed/{{ video.link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 </div>
 <!-- <form action="/delete/{{ video.id }}">
     <button type="submit">Delete</button>
 </form> -->
-<hr style="padding: 3px;">
+<hr style="padding: 3px; margin: 1%;">
 {% endfor %}
 
 {% endblock %}

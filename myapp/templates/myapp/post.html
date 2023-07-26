@@ -11,5 +11,13 @@
 <p>{{ post.comment }}</p>
 </div>
 
+<h3>Posts</h3>
+{% for post in posts %}
+
+<a style="text-decoration: none;" href="/post/{{post.id}}"><div class="post">
+    <h2>{{ post.name }}</h2>
+</div></a>
+{% endfor %}
+
 
 {% endblock %}

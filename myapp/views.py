@@ -52,4 +52,6 @@ def post(request, post_id):
     posts = int(post_id) - 1
     p = post[posts]
 
-    return render(request, "myapp/post.html", { "post": p })
+    return render(request, "myapp/post.html", { "post": p, "posts": post })
+
+

@@ -57,3 +57,6 @@ def post(request, post_id):
 
 def about(request):
     return render(request, "myapp/about.html")
+
+def contact(request):
+    return render(request, "myapp/contact.html")

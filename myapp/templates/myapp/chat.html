@@ -115,7 +115,7 @@ button[type="submit"] {
 {% block body %}
 <br><br>
 <br>
-{% if user.authenticated %}
+{% if user.is_authenticated %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
     <div class="form-group">

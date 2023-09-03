@@ -135,19 +135,19 @@ button[type="submit"] {
 
 <div class="post-container">
     {% for item in post|dictsortreversed:"id" %}
+    <hr style="margin: 0px;">
     <div class="post-card">
+        <div class="post-content">
+            <h1 style="margin-left: 10px; margin-bottom: 2px; font-size: large;">{{ item.username }}</h1>
+            <p style="margin-left: 5px; margin-top: 3px; padding: 1px;  font-size: medium;">{{ item.post }}</p>
+        </div>
         {% if item.image %}
         <div class="post-image">
             <img src="{{ item.image.url }}" alt="Post Image">
         </div>
         {% endif %}
-        <div class="post-content">
-            <p style="margin-left: 7px; padding: 1px; font-size: medium;">{{ item.post }}</p>
-        </div>
-        <div class="user-info">
-            <h1 style="margin-left: 15px; padding: 0%; font-size: small;">{{ item.username }}</h1>
-        </div>
     </div>
+    <hr style="margin: 3px; margin-bottom: 0px;">
     {% endfor %}
 </div>
 {% endblock %}

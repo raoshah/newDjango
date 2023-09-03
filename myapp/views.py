@@ -84,7 +84,7 @@ def register(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return render(request, "myapp/chat.html")
+            return redirect('chat')
     else:
         form = UserRegistrationForm()
     return render(request, "myapp/register.html", {"form":form})
@@ -98,7 +98,7 @@ def user_login(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('chat')
     else:
         form = UserLoginForm()
     return render(request, "myapp/user_login.html", {"form": form})

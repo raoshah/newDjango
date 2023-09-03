@@ -1,0 +1,10 @@
+{% extends 'myapp/layout.html' %}
+
+{% block body %}
+    <h1>hello</h1>
+    <form action="" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form }}
+
+    </form>
+{% endblock %}

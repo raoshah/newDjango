@@ -21,3 +21,8 @@ class Question(models.Model):
 class Youtube(models.Model):
     title = models.CharField(max_length=40)  
     link = models.CharField(max_length=60)  
+
+class Chat(models.Model):
+    username = models.CharField(max_length=100)
+    post = models.TextField()
+    image = models.ImageField(upload_to='post_images/', blank=True, null=True)

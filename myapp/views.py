@@ -1,6 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from .models import Post, Question, Youtube
+from django.shortcuts import render, get_object_or_404, redirect
+from .models import Post, Question, Youtube, Chat
 from django.contrib import messages
+from .forms import ChatForm, UserRegistrationForm, UserLoginForm
+from django.contrib.auth import login, authenticate, logout
 
 
 def home(request):
@@ -60,3 +62,38 @@ def about(request):
 
 def contact(request):
     return render(request, "myapp/contact.html")
+
+def chat(request):
+    form = ChatForm()
+    return render(request, "myapp/chat.html", {"form": form})
+
+def register(request):
+    if request.method == 'POST':
+        form = UserRegistrationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return render(request, "myapp/chat.html")
+    else:
+        form = UserRegistrationForm()
+    return render(request, "myapp/register.html", {"form":form})
+
+def user_login(request):
+    if request.method == 'POST':
+        form = UserLoginForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+    else:
+        form = UserLoginForm()
+    return render(request, "myapp/user_login.html", {"form": form})
+
+def user_logout(request):
+    logout(request)
+    return redirect('home')
+
+def profile(request):
+    return render(request, "myapp/profile.html")

@@ -5,6 +5,9 @@
 
 {% block body %}
     <br><br>
+    {% if user.is_authenticated %}
+        <h1> Welcome {{ user.username }} {{ user.id }}</h1>
+    {% endif %}
     <h3>Objective Questions :</h3>
     <form action="/react/{{z}}" method="post">
         {% csrf_token %}

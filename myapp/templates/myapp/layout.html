@@ -268,8 +268,14 @@
         <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
         <ul class="menu">
             <li><a href="/videos/">Videos</a></li>
+            <li><a href="/chat/">Chat</a></li>
             <li><a href="/about/">About Us</a></li>
             <li><a href="/contact/">Contact Us</a></li>
+            {% if user.is_authenticated %}
+            <li><a href="/profile/">Profile</a></li>
+            {% else %}
+            <li><a href="/user_login/">Login</a></li>
+            {% endif %}
         </ul>
     </header>
     <br><br>

@@ -114,6 +114,7 @@ button[type="submit"] {
 {% endblock %}
 {% block body %}
 <br><br>
+<br>
 {% if user.authenticated %}
 <form method="post" enctype="multipart/form-data">
     {% csrf_token %}

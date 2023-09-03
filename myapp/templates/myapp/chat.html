@@ -1,5 +1,49 @@
 {% extends 'myapp/layout.html' %}
+{% block head %}
+    <style>
+        .post-container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 0px;
+        }
 
+        /* Stylish post card */
+        .post-card {
+            background-color: #f7f7f7;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2px;
+        }
+
+        .user-info {
+            padding: 1px;
+            background-color: #fff;
+            color: #000;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            font-size: small;
+        }
+
+        /* Post content */
+        .post-content {
+            padding: 1px;
+            font-size: small;
+        }
+        .post-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* Responsive design for different screen sizes */
+        @media (max-width: 768px) {
+            .post-container {
+                max-width: 100%;
+                padding: 2px;
+            }
+        }
+    </style>
+{% endblock %}
 {% block body %}
     <h1>hello</h1>
     <form method="post" enctype="multipart/form-data">
@@ -8,8 +52,19 @@
         <button type="submit"> Post </button>
     </form>
 
-    {% for item in post %}
-        <h1>{{item.username}}</h1>
-        <img src="{{item.image.url}}" alt="img">
-    {% endfor %}
+    <div class="post-container">
+        {% for item in post|dictsortreversed:"id" %}
+            <div class="post-card">
+                <div class="user-info">
+                    <h1 style="margin-left: 15px; padding: 0%; font-size: small;">{{ item.username }}</h1>
+                </div>
+                <div class="post-image">
+                    <img src="{{ item.image.url }}" alt="Post Image">
+                </div>
+                <div class="post-content">
+                    <p style="margin-left: 7px; padding: 1px; font-size: medium;">{{ item.post }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
 {% endblock %}

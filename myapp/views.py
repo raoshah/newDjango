@@ -64,13 +64,17 @@ def contact(request):
     return render(request, "myapp/contact.html")
 
 def chat(request):
+    username = request.user.username
     post = Chat.objects.all()
     if request.method == 'POST':
         form = ChatForm(request.POST, request.FILES)
         if form.is_valid():
-            # username = request.session.get('username')
-            form.save()
+            chat = form.save(commit=False)
+            chat.username = request.user.username  # Set the username
+            chat.save()
             return redirect('chat')
+        else:
+            print(form.errors)  
     else:
         form = ChatForm()
     return render(request, "myapp/chat.html", {"form": form, "post": post})

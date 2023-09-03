@@ -16,4 +16,14 @@ class UserRegistrationForm(UserCreationForm):
 class ChatForm(forms.ModelForm):
     class Meta:
         model = Chat
-        fields = ['username', 'post', 'image']
+        fields = ['post', 'image']
+
+        widgets = {
+            'post': forms.Textarea(attrs={'class': 'custom-textarea'}),
+            'image': forms.FileInput(attrs={'class': 'custom-file-input'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['post'].label = ''
+        self.fields['image'].label = ''

@@ -26,3 +26,11 @@ class Chat(models.Model):
     username = models.CharField(max_length=100)
     post = models.TextField()
     image = models.ImageField(upload_to='post_images/', blank=True, null=True)
+
+class library(models.Model):
+    que = models.CharField(max_length=300)
+    a = models.CharField(max_length=300)
+    b = models.CharField(max_length=300)
+    c = models.CharField(max_length=300)
+    d = models.CharField(max_length=300)
+    ans = models.CharField(max_length=300)

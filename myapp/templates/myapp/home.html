@@ -2,6 +2,35 @@
 
 {% block body %}
     <h3>Objective Questions :</h3>
+    {{ lib }}
+    <form action="/libra/{{z}}" method="post">
+        {% csrf_token %}
+        <p style="background-color: cornsilk;">Question No.{{ l.id }}</p>
+        <h4 style="background-color: whitesmoke; font-size: large;">{{ l.que }}</h4>
+        <div class="options-container">
+            <div class="column">
+                <label>
+                    <input type="radio" name="a" value="{{a.a}}">
+                    {{l.a}}
+                </label>
+                <label>
+                    <input type="radio" name="a" value="{{a.b}}">
+                    {{l.b}}
+                </label>
+            </div>
+            <div class="column">
+                <label>
+                    <input type="radio" name="a" value="{{a.c}}">
+                    {{l.c}}
+                </label>
+                <label>
+                    <input type="radio" name="a" value="{{a.d}}">
+                    {{l.d}}
+                </label>
+            </div>
+        </div>
+        <input type="submit" value="Submit">
+    </form>
     <form action="/react/{{z}}" method="post">
         {% csrf_token %}
         <p style="background-color: cornsilk;">Question No.{{ a.id }}</p>

@@ -1,0 +1,48 @@
+{% extends 'myapp/layout.html' %}
+
+{% block body %}
+<h3>Objective Questions</h3>
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %}
+        class="{% if message.tags == 'success' %}text-success{% elif message.tags == 'warning' %}text-warning{% endif %}"
+        {% endif %}>{{ message }}</li>
+        {% endfor %}
+</ul>
+{% endif %}
+
+
+<form action="/libra/{{a.id}}" method="post">
+    {% csrf_token %}
+    <p style="background-color: cornsilk;">Question No.{{ a.id }}</p>
+    <h4 style="background-color: whitesmoke;font-size: large;">{{ a.que }}</h4>
+    <div class="options-container">
+        <div class="column">
+            <label>
+                <input type="radio" name="a" value="{{a.a}}">
+                {{a.a}}
+            </label>
+            <label>
+                <input type="radio" name="a" value="{{a.b}}">
+                {{a.b}}
+            </label>
+        </div>
+        <div class="column">
+            <label>
+                <input type="radio" name="a" value="{{a.c}}">
+                {{a.c}}
+            </label>
+            <label>
+                <input type="radio" name="a" value="{{a.d}}">
+                {{a.d}}
+            </label>
+        </div>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+<div id="score">
+    <h4 style="text-align: center; padding: 4px;">Score: {{ score }}</h4>
+</div>
+
+{% endblock %}

@@ -7,6 +7,7 @@ class UserLoginForm(AuthenticationForm):
     class Meta:
         fields = ['username', 'password']
 
+
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
@@ -19,7 +20,7 @@ class ChatForm(forms.ModelForm):
         fields = ['post', 'image']
 
         widgets = {
-            'post': forms.Textarea(attrs={'class': 'custom-textarea'}),
+            'post': forms.Textarea(attrs={'class': 'custom-textarea', 'placeholder': 'text'}),
             'image': forms.FileInput(attrs={'class': 'custom-file-input'}),
         }
 

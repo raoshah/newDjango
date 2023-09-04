@@ -8,147 +8,222 @@
     {% block style %}{% endblock %}
 
     <style>
-        body {
+        * {
+
             margin: 0;
-            font-family: 'Droid Serif', serif;
-            background-color: #f4f4f4;
-        }
 
-        a {
-            color: #000;
-        }
-
-
-        .header {
-            background-color: #fff;
-            box-shadow: 1px 1px 4px 0 rgba(0, 0, 0, .1);
-            position: fixed;
-            width: 100%;
-            z-index: 3;
-        }
-
-        .header ul {
-            margin: 0;
             padding: 0;
-            list-style: none;
-            overflow: hidden;
-            background-color: #fff;
+
+            box-sizing: border-box;
+
+            font-family: sans-serif;
+
+        }
+        body {
+            margin: 1%;
+            padding: 1%;
         }
 
-        .header li a {
-            display: block;
-            padding: 10px 10px;
-            border-right: 1px solid #f4f4f4;
-            text-decoration: none;
-        }
+        .div_nav {
 
-        .header li a:hover,
-        .header .menu-btn:hover {
-            background-color: #f4f4f4;
-        }
+            display: flex;
+          
+            justify-content: flex-start;
 
-        .header .logo {
-            display: block;
-            float: left;
-            font-size: 1.3em;
-            padding: 15px 3px;
-            text-decoration: none;
-        }
+            height: fit-content;
 
-        /* menu */
-
-        .header .menu {
-            clear: both;
-            max-height: 0;
-            transition: max-height .2s ease-out;
-        }
-
-        /* menu icon */
-
-        .header .menu-icon {
-            cursor: pointer;
-            display: inline-block;
-            padding: 28px 20px;
-            position: relative;
-            user-select: none;
-            float: right;
-        }
-
-        .header .menu-icon .navicon {
-            background: #333;
-            display: block;
-            height: 2px;
-            position: relative;
-            transition: background .2s ease-out;
-            width: 18px;
-        }
-
-        .header .menu-icon .navicon:before,
-        .header .menu-icon .navicon:after {
-            background: #333;
-            content: '';
-            display: block;
-            height: 100%;
+            margin-bottom: -40px;
             position: absolute;
-            transition: all .2s ease-out;
-            width: 100%;
+            z-index: 2;
+
         }
 
-        .header .menu-icon .navicon:before {
-            top: 5px;
+        .navigation {
+
+
+            width: 50px;
+
+            height: 50px;
+
+            border-radius: 60px;
+
+            display: flex;
+
+            flex-direction: column;
+            justify-content: flex-start;
+
+            align-items: start;
+
+
+
+            transition: 0.5s;
+
+            transition-delay: 0.5s;
+
         }
 
-        .header .menu-icon .navicon:after {
-            top: -5px;
+        .navigation.active {
+            position: fixed;
+            background-color: #007bff;
+            height: fit-content;
+            width: fit-content;
+            border-radius: 5px;
+            margin-top: auto;
+            padding-top: auto;
+    
+        }
+        .div_nav.active {
+            margin-top: 5px;
         }
 
-        /* menu btn */
+        .navigation .toggleMenu {
+            position: fixed;
 
-        .header .menu-btn {
-            display: none;
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            width: 50px;
+
+            height: 50px;
+
+            background: #ff4181;
+
+            border-radius: 50%;
+
+            transition: 0.5s;
+
+            transition-delay: 0.5s;
+
+            cursor: pointer;
+
         }
 
-        .header .menu-btn:checked~.menu {
-            max-height: 240px;
+        .navigation.active .toggleMenu {
+
+            background: #ff4181;
+
+            transition-delay: 0s;
+
+            transform: translateY(60px);
+
+            width: 30px;
+            height: 30px;
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+            
+            margin-left: 138px;
+            margin-top: 110px;
+            
         }
 
-        .header .menu-btn:checked~.menu-icon .navicon {
-            background: transparent;
+        .navigation .toggleMenu::before {
+
+            content: '';
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 2px;
+
+            background: #fff;
+
+            transform: translateY(-5px);
+
+            transition: 0.5s;
+
+            transition-delay: 0.5s;
+
         }
 
-        .header .menu-btn:checked~.menu-icon .navicon:before {
-            transform: rotate(-45deg);
+        .navigation .toggleMenu::after {
+
+            content: '';
+
+            position: absolute;
+
+            width: 20px;
+
+            height: 2px;
+
+            background: #fff;
+
+            transform: translateY(5px);
+
+            transition: 0.5s;
+
+            transition-delay: 0.5s;
+
+
         }
 
-        .header .menu-btn:checked~.menu-icon .navicon:after {
-            transform: rotate(45deg);
+        .navigation.active .toggleMenu::before {
+
+            background: #fff;
+
+            transform: translateY(0px) rotate(45deg) scale(0.6);
+
+            transition-delay: 0s;
         }
 
-        .header .menu-btn:checked~.menu-icon:not(.steps) .navicon:before,
-        .header .menu-btn:checked~.menu-icon:not(.steps) .navicon:after {
-            top: 0;
+        .navigation.active .toggleMenu::after {
+
+            background: #fff;
+
+            transform: translateY(0px) rotate(315deg) scale(0.6);
+
+            transition-delay: 0s;
+
+            
+
         }
 
-        /* 48em = 768px */
+        .navigation li {
 
-        @media (min-width: 48em) {
-            .header li {
-                float: left;
-            }
+            list-style: none;
 
-            .header li a {
-                padding: 20px 30px;
-            }
+            transition: 0.5s;
 
-            .header .menu {
-                clear: none;
-                float: right;
-                max-height: none;
-            }
+            transform: scale(0);
 
-            .header .menu-icon {
-                display: none;
-            }
+        }
+
+        .navigation.active li {
+
+            display: flex;
+
+            transform: scale(1);
+
+            transition-delay: 0.75s;
+
+        }
+
+        .navigation li a {
+
+            text-decoration: none;
+
+            color: #f4efef;
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.12em;
+
+            padding: 5px 15px;
+
+            border-radius: 20px;
+
+            transition: 0.5s;
+
+        }
+
+        .navigation li a:hover {
+
+            background: #ff4181;
+
+            color: #fff;
+
         }
 
         #video-container {
@@ -178,16 +253,16 @@
             border: 1px solid #ccc;
             padding: 20px;
             margin-bottom: 3%;
-            
+
         }
 
         /* Style the form header */
-        h2 {
+        form h2 {
             font-size: 24px;
             margin-bottom: 10px;
         }
 
-        h3 {
+        form h3 {
             text-align: center;
             background-color: burlywood;
             margin: 2%;
@@ -256,30 +331,62 @@
             color: #007bff;
             margin-bottom: 10px;
         }
+        .head {
+            margin-bottom: 10px;
+            display: flex;
+            width: 100%;
+            height: 50px;
+            justify-content: flex-end;
+        }
     </style>
     {% block head %}
-        
+
     {% endblock %}
 </head>
 
 <body>
-    <header class="header">
-        <a href="/" class="logo">Shine Your Study</a>
-        <input class="menu-btn" type="checkbox" id="menu-btn" />
-        <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-        <ul class="menu">
-            <li><a href="/videos/">Videos</a></li>
-            <li><a href="/chat/">Chat</a></li>
-            <li><a href="/about/">About Us</a></li>
-            <li><a href="/contact/">Contact Us</a></li>
-            {% if user.is_authenticated %}
-            <li><a href="/profile/">Profile</a></li>
-            {% else %}
-            <li><a href="/user_login/">Login</a></li>
-            {% endif %}
-        </ul>
-    </header>
-    <br><br>
+    <div style="margin-top: 1%;" >
+        <div class="div_nav">
+            <ul class="navigation">
+                <li><a href="/">Home</a></li>
+                <li><a href="/videos/">Videos</a></li>
+                <li><a href="/chat/">Chat</a></li>
+                <li><a href="/about/">About Us</a></li>
+                <li><a href="/contact/">Contact Us</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="/profile/">Profile</a></li>
+                {% else %}
+                <li><a href="/user_login/">Login</a></li>
+                {% endif %}
+                <span class="toggleMenu"></span>
+            </ul>
+            <script>
+    
+                let toggleMenu =
+    
+                    document.querySelector('.toggleMenu');
+    
+                let navigation =
+    
+                    document.querySelector('.navigation');
+
+                let div_nav = document.querySelector('.div_nav');
+    
+                toggleMenu.onclick = function () {
+    
+                    navigation.classList.toggle('active');
+                    div_nav.classList.toggle('active');
+    
+                }
+    
+            </script>
+    
+        </div>
+
+    </div>
+    <div class="head">
+        <img src="/media/images/logo.png" alt="logo">
+    </div>
     {% block body %}{% endblock %}
 </body>
 

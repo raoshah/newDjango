@@ -42,103 +42,106 @@
         border: none;
 
     }
-    .login_form form label{
 
-display: block;
+    .login_form form label {
 
-margin-top: 30px;
+        display: block;
 
-font-size: 16px;
+        margin-top: 30px;
 
-font-weight: 500;
+        font-size: 16px;
 
-}
-.login_form form input{
+        font-weight: 500;
 
-display: block;
+    }
 
-width: 100%;
+    .login_form form input {
 
-height: 50px;
+        display: block;
 
-background-color: rgba(255,255,255,0.07);
+        width: 100%;
 
-border-radius: 3px;
+        height: 50px;
 
-padding: 0 10px;
+        background-color: rgba(255, 255, 255, 0.07);
 
-font-size: 18px;
+        border-radius: 3px;
 
-letter-spacing: 1px;
+        padding: 0 10px;
 
-font-weight: 300;
+        font-size: 18px;
 
-margin-top: 8px;
+        letter-spacing: 1px;
 
-}
-button[type="submit"]{
+        font-weight: 300;
 
-width: 100%;
+        margin-top: 8px;
 
-margin-top: 50px;
+    }
 
-background-color: #fff;
+    button[type="submit"] {
 
-color: #080710;
+        width: 100%;
 
-padding: 15px 0;
+        margin-top: 50px;
 
-font-size: 18px;
+        background-color: #fff;
 
-font-weight: 600;
+        color: #080710;
 
-border-radius: 5px;
+        padding: 15px 0;
 
-cursor: pointer;
+        font-size: 18px;
 
-}
-.bg {
+        font-weight: 600;
 
-position: absolute;
+        border-radius: 5px;
 
-width: 40px;
+        cursor: pointer;
 
-height: 520px;
+    }
 
-}
+    .bg {
 
-.bg .shape {
+        position: absolute;
 
-position: absolute;
+        width: 40px;
 
-width: 200px;
+        height: 520px;
 
-height: 200px;
+    }
 
-border-radius: 50%;
+    .bg .shape {
 
-}
+        position: absolute;
 
-.bg .shape:first-child {
+        width: 200px;
 
-background: linear-gradient(#9b22ea, #bf23fb);
+        height: 200px;
 
-top: -80px;
+        border-radius: 50%;
 
-left: -80px;
+    }
 
-}
+    .bg .shape:first-child {
 
-.bg .shape:last-child {
+        background: linear-gradient(#9b22ea, #bf23fb);
 
-background: linear-gradient(to right, #ff512f, #f09819);
+        top: -80px;
 
-right: -30px;
+        left: -80px;
 
-bottom: -80px;
+    }
 
-}
+    .bg .shape:last-child {
 
+        background: linear-gradient(to right, #ff512f, #f09819);
+
+        right: -30px;
+
+        bottom: -80px;
+
+    }
 </style>
 {% endblock %}
 {% block body %}
@@ -147,11 +150,11 @@ bottom: -80px;
 
         <div class="shape"></div>
         <div class="shape"></div>
-       
+
     </div>
 
     <form method="post">
-    
+
         {% csrf_token %}
         {{ form.username.label_tag }}
         {{ form.username }}
@@ -159,17 +162,9 @@ bottom: -80px;
         {{ form.password }}
         <button type="submit">Login</button>
         <p>if you don't have an account? <a href="/register/">Register</a></p>
-    
+
     </form>
 
-</div>
-
-<div style="text-align: center;">
-    <div class="bg">
-
-        <div class="shape"></div>
-        <div class="shape"></div>
-    
 </div>
 
 {% endblock %}

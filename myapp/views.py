@@ -44,7 +44,6 @@ def libra(request, id):
                 messages.success(request, f'Your Last Answer Was Right ...🥳🥳🥳🥳...')
                 return render(request, "myapp/libra.html", { "ans": ans, "a": r, "score": request.session['score'], "count": request.session['count'] })
             else:
-                request.session['score'] -= 1
                 request.session['count'] += 1
                 messages.warning(request, f'Your Last Answer Was Wrong 😢😢😢😢😢😢.  Right Answer Was " {a.ans} "')
                 return render(request, "myapp/libra.html", { "ans": ans, "a": r, "score": request.session['score'], "count": request.session['count'] })

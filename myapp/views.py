@@ -12,7 +12,7 @@ def home(request):
     z = 1
     a = ans[0]
     l = lib[0]
-    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l":l } )
+    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l": l } )
 
 def videos(request):
     videos = Youtube.objects.all()

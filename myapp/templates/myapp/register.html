@@ -2,10 +2,33 @@
 
 {% block body %}
 
+<div class="login_form">
+    <div class="bg">
+
+        <div class="shape"></div>
+        <div class="shape"></div>
+
+    </div>
+    <div class="bg1">
+
+        <div class="shape"></div>
+        <div class="shape"></div>
+
+    </div>
+
     <form method="post">
+        <p>if you Already have an account? <a href="/user_lodin/">Login</a></p>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" > Register </button>
+        <p>if you Already have an account? <a href="/user_lodin/">Login</a></p>
+
+    </form>
+
+</div>
+
+    <form method="post">
+       
     </form>
 
 {% endblock %}

@@ -4,7 +4,7 @@
     <h3>Objective Questions :</h3>
     <form action="/libra/{{z}}" method="post">
         {% csrf_token %}
-        <p style="background-color: cornsilk;">Question No.{{ l.id }}</p>
+        <p style="background-color: cornsilk;">Library Science Quiz No.{{ l.id }}</p>
         <h4 style="background-color: whitesmoke; font-size: large;">{{ l.que }}</h4>
         <div class="options-container">
             <div class="column">
@@ -32,7 +32,7 @@
     </form>
     <form action="/react/{{z}}" method="post">
         {% csrf_token %}
-        <p style="background-color: cornsilk;">Question No.{{ a.id }}</p>
+        <p style="background-color: cornsilk;">Rajasthan GK Quiz No.{{ a.id }}</p>
         <h4 style="background-color: whitesmoke; font-size: large;">{{ a.que }}</h4>
         <div class="options-container">
             <div class="column">

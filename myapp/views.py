@@ -41,12 +41,12 @@ def libra(request, id):
             if ans == a.ans:
                 request.session['score'] += 1
                 request.session['count'] += 1
-                messages.success(request, 'Your Last Answer Was Right ...')
+                messages.success(request, f'Your Last Answer Was Right ...🥳🥳🥳🥳...')
                 return render(request, "myapp/libra.html", { "ans": ans, "a": r, "score": request.session['score'], "count": request.session['count'] })
             else:
                 request.session['score'] -= 1
                 request.session['count'] += 1
-                messages.warning(request, f'Your Last Answer Was Wrong.  Right Answer Was " {a.ans} "')
+                messages.warning(request, f'Your Last Answer Was Wrong 😢😢😢😢😢😢.  Right Answer Was " {a.ans} "')
                 return render(request, "myapp/libra.html", { "ans": ans, "a": r, "score": request.session['score'], "count": request.session['count'] })
     except (ValueError, IndexError) as e:
         return render(request, "myapp/error.html", {"error_message": str(e), "score": request.session['score']})

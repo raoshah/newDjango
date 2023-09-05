@@ -28,3 +28,7 @@ class ChatForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['post'].label = ''
         self.fields['image'].label = ''
+
+class PaymentForm(forms.Form):
+        amount = forms.DecimalField(label='Amount:', max_digits=10, decimal_places=2)
+        discription = forms.CharField(label='Discription', max_length=255)

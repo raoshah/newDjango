@@ -1,8 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Question, Youtube, Chat, library
 from django.contrib import messages
-from .forms import ChatForm, UserRegistrationForm, UserLoginForm
+from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
 from django.contrib.auth import login, authenticate, logout
+from django.conf import settings
+import razorpay
+
 
 
 def home(request):
@@ -143,3 +146,16 @@ def user_logout(request):
 
 def profile(request):
     return render(request, "myapp/profile.html")
+
+def create_order(request):
+    if request.method == 'POST':
+        form = PaymentForm(request.POST)
+        if form.is_valid():
+            amount = int(form.cleaned_data['amount']) *100
+            description = form.cleaned_data['discription']
+            client = razorpay.Client(auth=( 'rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
+            order = client.order.create({'amount': amount, 'currency': 'INR'})
+            return redirect(order['short_url'])
+    else:
+        form = PaymentForm()
+    return render(request, 'myapp/create_order.html', {'form': form})

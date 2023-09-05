@@ -135,6 +135,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+RAZORPAY_KEY_ID = 'rzp_test_iuZzNQtq9KZ1Ol'
+RAZORPAY_KEY_SECRET = 'XxZFvpxVtrCkca5Drz3kz78w'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

@@ -4,8 +4,8 @@
     <h3>Objective Questions :</h3>
     <form action="/libra/{{z}}" method="post">
         {% csrf_token %}
-        <p style="background-color: cornsilk;">Library Science Quiz </p>
-        <h4 style="background-color: whitesmoke; font-size: large; margin: 1%;">No.{{ l.id }}: {{ l.que }}</h4>
+        <p style="background-color: cornsilk;">Library Science Quiz {{ l.id }}: </p>
+        <h4 style="background-color: whitesmoke; font-size: large; margin: 1%;"> {{ l.que }}</h4>
         <div class="options-container">
             <div class="column">
                 <label>

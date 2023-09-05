@@ -15,4 +15,5 @@ urlpatterns = [
     path ('user_logout/', views.user_logout, name='user_logout'),
     path ('profile/', views.profile, name='profile'),
     path ('create_order', views.create_order, name='create_order'),
+    path ('payment/<str:order_id>/', views.payment_view, name='payment_view')
 ]

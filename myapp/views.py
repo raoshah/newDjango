@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from .models import Post, Question, Youtube, Chat, library
+from .models import Post, Question, Youtube, Chat, library, Payment
 from django.contrib import messages
 from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
 from django.contrib.auth import login, authenticate, logout
@@ -155,7 +155,29 @@ def create_order(request):
             description = form.cleaned_data['discription']
             client = razorpay.Client(auth=( 'rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
             order = client.order.create({'amount': amount, 'currency': 'INR'})
-            return redirect(order['short_url'])
+            short_url = f"http://localhost:8000/payment/{order['id']}"
+            return redirect(short_url)
     else:
         form = PaymentForm()
     return render(request, 'myapp/create_order.html', {'form': form})
+
+def payment_view(request, order_id):
+    client = razorpay.Client(auth=('rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
+    try:
+        order = client.order.fetch(order_id)
+        payment_status = order['status']
+        if payment_status == 'paid':
+            payment = Payment.objects.all(order_id=order_id)
+            payment.status = 'paid'
+            payment()
+            return redirect('home')
+        elif payment_status == 'pending':
+            return redirect('chat')
+        else:
+            return redirect('create_order')
+    except Exception as e:
+        print(f"Payment Error: {str(e)}")
+        return redirect('register')
+
+# def payment_list(request):
+#     all_payment = P

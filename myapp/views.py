@@ -127,7 +127,6 @@ def register(request):
     return render(request, "myapp/register.html", {"form":form})
 
 def user_login(request):
-    payl = Payment.objects.all()
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
@@ -139,7 +138,7 @@ def user_login(request):
                 return redirect('chat')
     else:
         form = UserLoginForm()
-    return render(request, "myapp/user_login.html", {"form": form, "payl": payl})
+    return render(request, "myapp/user_login.html", {"form": form})
 
 def user_logout(request):
     logout(request)
@@ -151,6 +150,7 @@ def profile(request):
 logger = logging.getLogger(__name__)
 
 def create_order(request):
+    payl = Payment.objects.all()
     print(request.META.get('HTTP_HOST'))
     if request.method == 'POST':
         form = PaymentForm(request.POST)
@@ -168,7 +168,7 @@ def create_order(request):
                 
     else:
         form = PaymentForm()
-    return render(request, 'myapp/create_order.html', {'form': form})
+    return render(request, 'myapp/create_order.html', {'form': form, "payl": payl})
 
 
 def payment_view(request, order_id):

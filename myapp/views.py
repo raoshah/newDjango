@@ -127,6 +127,7 @@ def register(request):
     return render(request, "myapp/register.html", {"form":form})
 
 def user_login(request):
+    payl = Payment.objects.all()
     if request.method == 'POST':
         form = UserLoginForm(request, data=request.POST)
         if form.is_valid():
@@ -138,7 +139,7 @@ def user_login(request):
                 return redirect('chat')
     else:
         form = UserLoginForm()
-    return render(request, "myapp/user_login.html", {"form": form})
+    return render(request, "myapp/user_login.html", {"form": form, "payl": payl})
 
 def user_logout(request):
     logout(request)

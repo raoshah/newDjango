@@ -148,6 +148,7 @@ def profile(request):
     return render(request, "myapp/profile.html")
 
 def create_order(request):
+    print(request.META.get('HTTP_HOST'))
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
@@ -155,8 +156,13 @@ def create_order(request):
             description = form.cleaned_data['discription']
             client = razorpay.Client(auth=( 'rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
             order = client.order.create({'amount': amount, 'currency': 'INR'})
-            short_url = f"http://localhost:8000/payment/{order['id']}"
-            return redirect(short_url)
+            if request.META.get('HTTP_HOST') == 'localhost:8000':
+                short_url = f"http://localhost:8000/payment/{order['id']}"
+                return redirect(short_url)
+            else:
+                short_url = f"https://jangooji.onrender.com/payment/{order['id']}"
+                return redirect(short_url)
+                
     else:
         form = PaymentForm()
     return render(request, 'myapp/create_order.html', {'form': form})

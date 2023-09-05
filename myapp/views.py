@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
 from django.contrib.auth import login, authenticate, logout
 from django.conf import settings
-import razorpay
+import razorpay, logging
 
 
 
@@ -147,6 +147,8 @@ def user_logout(request):
 def profile(request):
     return render(request, "myapp/profile.html")
 
+logger = logging.getLogger(__name__)
+
 def create_order(request):
     print(request.META.get('HTTP_HOST'))
     if request.method == 'POST':
@@ -154,7 +156,7 @@ def create_order(request):
         if form.is_valid():
             amount = int(form.cleaned_data['amount']) *100
             description = form.cleaned_data['discription']
-            client = razorpay.Client(auth=( 'rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
+            client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
             order = client.order.create({'amount': amount, 'currency': 'INR'})
             if request.META.get('HTTP_HOST') == 'localhost:8000':
                 short_url = f"http://localhost:8000/payment/{order['id']}"
@@ -167,23 +169,27 @@ def create_order(request):
         form = PaymentForm()
     return render(request, 'myapp/create_order.html', {'form': form})
 
+
 def payment_view(request, order_id):
-    client = razorpay.Client(auth=('rzp_test_iuZzNQtq9KZ1Ol', 'XxZFvpxVtrCkca5Drz3kz78w'))
+    client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
     try:
         order = client.order.fetch(order_id)
         payment_status = order['status']
-        if payment_status == 'paid':
-            payment = Payment.objects.all(order_id=order_id)
+        if payment_status == 'created':
+            # Retrieve the specific payment by filtering on the order_id
+            payment = Payment.objects.get(order_id=order_id)
             payment.status = 'paid'
-            payment()
+            payment.save()
             return redirect('home')
         elif payment_status == 'pending':
             return redirect('chat')
         else:
             return redirect('create_order')
     except Exception as e:
+        logger.error(f"Razorpay API Error: {str(e)}")
         print(f"Payment Error: {str(e)}")
         return redirect('register')
+
 
 # def payment_list(request):
 #     all_payment = P

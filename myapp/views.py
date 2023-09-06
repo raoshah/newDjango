@@ -152,7 +152,8 @@ def profile(request):
 logger = logging.getLogger(__name__)
 client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
 def create_order(request):
-    payl = Payment.objects.all()
+    payl = client.payment.all()
+    pay2 = payl
     print(request.META.get('HTTP_HOST'))
     if request.method == 'POST':
         form = PaymentForm(request.POST)
@@ -161,7 +162,7 @@ def create_order(request):
             description = form.cleaned_data['discription']
             order = client.order.create({'amount': amount, 'currency': 'INR'})
             if request.META.get('HTTP_HOST') == 'localhost:8000':
-                short_url = f"http://localhost:8000/payment/{order['id']}"
+                short_url = f"http://localhost:8000/payment/{order['id']},{order['amount']}"
                 return redirect(short_url)
             else:
                 short_url = f"https://jangooji.onrender.com/payment/{order['id']}"
@@ -171,7 +172,7 @@ def create_order(request):
         data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
         payme = client.order.create(data=data)
         form = PaymentForm()
-    return render(request, 'myapp/create_order.html', {'form': form, "payl": payl, "payme": payme, "client": client})
+    return render(request, 'myapp/create_order.html', {'form': form, "payl": pay2, "payme": payme, "client": client})
 
 
 @csrf_exempt
@@ -181,5 +182,5 @@ def verify_payment(request):
 
 
 
-def payment_view(request, order_id):
-    return render(request, 'myapp/payment.html', {"order_id": order_id})
+def payment_view(request, order_id, amount):
+    return render(request, 'myapp/payment.html', {"order_id": order_id, "amount":amount})

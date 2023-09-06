@@ -1,8 +1,22 @@
 {% extends 'myapp/layout.html' %}
 
 {% block body %}
+<div class="login_form">
+    <div class="bg">
 
-<button id="rzp-button1">Pay with Razorpay</button>
+        <div class="shape"></div>
+        <div class="shape"></div>
+
+    </div>
+<form >
+    
+    <button style="text-align: center; display: flex; align-items: center; font-size: larger; background-color: cornflowerblue; padding: 10%; border-radius: 10%; margin: 2%; box-shadow: 2%;" id="rzp-button1"> <h1 style="text-align: center;">₹{{ amount }} Pay</h1></button>
+</form>
+    
+
+</div>
+
+
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
 var options = {

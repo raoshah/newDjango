@@ -1,13 +1,15 @@
+from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Question, Youtube, Chat, library, Payment
-from django.contrib import messages
-from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
 from django.contrib.auth import login, authenticate, logout
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+from django.contrib import messages
 from django.conf import settings
 import razorpay, logging
 
 
-
+@csrf_exempt
 def home(request):
     lib = library.objects.all()
     post = Post.objects.all()
@@ -148,7 +150,7 @@ def profile(request):
     return render(request, "myapp/profile.html")
 
 logger = logging.getLogger(__name__)
-
+client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
 def create_order(request):
     payl = Payment.objects.all()
     print(request.META.get('HTTP_HOST'))
@@ -157,7 +159,6 @@ def create_order(request):
         if form.is_valid():
             amount = int(form.cleaned_data['amount']) *100
             description = form.cleaned_data['discription']
-            client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
             order = client.order.create({'amount': amount, 'currency': 'INR'})
             if request.META.get('HTTP_HOST') == 'localhost:8000':
                 short_url = f"http://localhost:8000/payment/{order['id']}"
@@ -167,30 +168,18 @@ def create_order(request):
                 return redirect(short_url)
                 
     else:
+        data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
+        payme = client.order.create(data=data)
         form = PaymentForm()
-    return render(request, 'myapp/create_order.html', {'form': form, "payl": payl})
+    return render(request, 'myapp/create_order.html', {'form': form, "payl": payl, "payme": payme, "client": client})
+
+
+@csrf_exempt
+def verify_payment(request):
+    if request.method == 'POST':
+        return JsonResponse({"message": "Invalid request method"}, status=405)
+
 
 
 def payment_view(request, order_id):
-    client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
-    try:
-        order = client.order.fetch(order_id)
-        payment_status = order['status']
-        if payment_status == 'created':
-            # Retrieve the specific payment by filtering on the order_id
-            payment = Payment.objects.get(order_id=order_id)
-            payment.status = 'paid'
-            payment.save()
-            return redirect('home')
-        elif payment_status == 'pending':
-            return redirect('chat')
-        else:
-            return redirect('create_order')
-    except Exception as e:
-        logger.error(f"Razorpay API Error: {str(e)}")
-        print(f"Payment Error: {str(e)}")
-        return redirect('register')
-
-
-# def payment_list(request):
-#     all_payment = P
+    return render(request, 'myapp/payment.html', {"order_id": order_id})

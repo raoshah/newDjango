@@ -163,7 +163,7 @@ def create_order(request):
                 short_url = f"http://localhost:8000/payment/{order['id']},{order['amount']},{description}"
                 return redirect(short_url)
             else:
-                short_url = f"https://jangooji.onrender.com/payment/{order['id']},{order['amount']}"
+                short_url = f"https://jangooji.onrender.com/payment/{order['id']},{order['amount']},{description}"
                 return redirect(short_url)
                 
     else:

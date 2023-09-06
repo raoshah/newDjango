@@ -16,9 +16,13 @@
     </form>
 
 </div>
-{% for item in payl.items %}
+<div style=" margin: 2%; margin-top: 20px; border: 1px; border-color: black; background-color: aliceblue; padding: 2%;">
+    {% for item in payl %}
+    <p><b>{{ item.description }}:</b> Paid  ₹{{ item.amount_after_subtraction|floatformat:0 }}</p>
+    <p style="color: rgb(104, 104, 104);"><b>Order.id:</b> {{ item.id }}</p>
+    <hr style="margin: 2%;">
+    {% endfor %}
+</div>
 
-    <p> <b>Amount:</b> {{ item.amount }} <b>Paid:</b> {{ item.amount_paid }} <b>Order.id:</b> {{ item.id }}</p>
-{% endfor %}
 
 {% endblock %}

@@ -30,5 +30,5 @@ class ChatForm(forms.ModelForm):
         self.fields['image'].label = ''
 
 class PaymentForm(forms.Form):
+        name = forms.CharField(label='Name:', max_length=25)
         amount = forms.DecimalField(label='Amount:', max_digits=10, decimal_places=2)
-        discription = forms.CharField(label='Discription', max_length=255)

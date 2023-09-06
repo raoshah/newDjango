@@ -6,10 +6,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 from django.contrib import messages
 from django.conf import settings
-import razorpay, logging
+import razorpay, logging, json
 
 
-@csrf_exempt
+
 def home(request):
     lib = library.objects.all()
     post = Post.objects.all()
@@ -152,35 +152,39 @@ def profile(request):
 logger = logging.getLogger(__name__)
 client = razorpay.Client(auth=('rzp_test_EhpwhFXUZM7A5f', 'o87txmxSQsfJh35LRGu7Pj0s'))
 def create_order(request):
-    payl = client.payment.all()
-    pay2 = payl
     print(request.META.get('HTTP_HOST'))
     if request.method == 'POST':
         form = PaymentForm(request.POST)
         if form.is_valid():
             amount = int(form.cleaned_data['amount']) *100
-            description = form.cleaned_data['discription']
-            order = client.order.create({'amount': amount, 'currency': 'INR'})
+            description = form.cleaned_data['name']
+            order = client.order.create({'amount': amount, 'currency': 'INR',})
             if request.META.get('HTTP_HOST') == 'localhost:8000':
-                short_url = f"http://localhost:8000/payment/{order['id']},{order['amount']}"
+                short_url = f"http://localhost:8000/payment/{order['id']},{order['amount']},{description}"
                 return redirect(short_url)
             else:
-                short_url = f"https://jangooji.onrender.com/payment/{order['id']}"
+                short_url = f"https://jangooji.onrender.com/payment/{order['id']},{order['amount']}"
                 return redirect(short_url)
                 
     else:
-        data = { "amount": 500, "currency": "INR", "receipt": "order_rcptid_11" }
-        payme = client.order.create(data=data)
-        form = PaymentForm()
-    return render(request, 'myapp/create_order.html', {'form': form, "payl": pay2, "payme": payme, "client": client})
+        payl = client.payment.all()
+        payl_data = payl
+        items = payl_data.get('items', [])
+        processed_items = []
+        for item in items:
+            amount_after_subtraction = item.get('amount') / 100
+            item['amount_after_subtraction'] = amount_after_subtraction
+            processed_items.append(item)
+            form = PaymentForm()
+    return render(request, 'myapp/create_order.html', {'form': form, "payl": processed_items,  "client": client})
+
+
+def payment_view(request, order_id, amount, description):
+    amount = int(amount) / 100
+    return render(request, 'myapp/payment.html', {"order_id": order_id, "amount":amount, "description": description})
 
 
 @csrf_exempt
 def verify_payment(request):
-    if request.method == 'POST':
-        return JsonResponse({"message": "Invalid request method"}, status=405)
+    return render(request, 'myapp/payment_done.html')
 
-
-
-def payment_view(request, order_id, amount):
-    return render(request, 'myapp/payment.html', {"order_id": order_id, "amount":amount})

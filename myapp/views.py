@@ -1,12 +1,13 @@
-from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm
+from .forms import ChatForm, UserRegistrationForm, UserLoginForm, PaymentForm, PhotoUploadForm
 from django.shortcuts import render, get_object_or_404, redirect
 from .models import Post, Question, Youtube, Chat, library, Payment
 from django.contrib.auth import login, authenticate, logout
 from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
+from PIL import Image
 from django.contrib import messages
 from django.conf import settings
-import razorpay, logging, json
+import razorpay, logging, json, io
 
 
 
@@ -188,3 +189,17 @@ def payment_view(request, order_id, amount, description):
 def verify_payment(request):
     return render(request, 'myapp/payment_done.html')
 
+def photo_to_pdf(request):
+    if request.method == 'POST':
+        form = PhotoUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            upload_photo = form.cleaned_data['photo']
+            pdf_bytes = io.BytesIO()
+            image = Image.open(upload_photo)
+            image.save(pdf_bytes, 'PDF')
+            response = HttpResponse(pdf_bytes.getvalue(), content_type='application/pdf')
+            response['content-Disposition'] = 'filename="image_to_pdf.pdf"'
+            return response
+    else:
+        form = PhotoUploadForm()
+    return render(request, 'myapp/upload.html', {"form": form})

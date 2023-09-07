@@ -32,3 +32,6 @@ class ChatForm(forms.ModelForm):
 class PaymentForm(forms.Form):
         name = forms.CharField(label='Name:', max_length=25)
         amount = forms.DecimalField(label='Amount:', max_digits=10, decimal_places=2)
+
+class PhotoUploadForm(forms.Form):
+    photo = forms.ImageField()

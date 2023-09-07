@@ -1,17 +1,66 @@
 {% extends 'myapp/layout.html' %}
+{% block head %}
+    <style>
+        /* #flower-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('/media/images/logo.png');
+            background-repeat: repeat;
+            pointer-events: none;
+        }
 
+        @keyframes flowerRain {
+            0% {
+                transform: translateY(-100%);
+            }
+            100% {
+                transform: translateY(100%);
+            }
+        } */
+
+        .image-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+#myImage {
+    display: none;
+    margin: 0 auto;
+}
+
+    </style>
+{% endblock %}
 {% block body %}
-<h3>Objective Questions</h3>
-{% if messages %}
-<ul class="messages">
-    {% for message in messages %}
-    <li{% if message.tags %}
-        class="{% if message.tags == 'success' %}text-success{% elif message.tags == 'warning' %}text-warning{% endif %}"
-        {% endif %}>{{ message }}</li>
+<div class="image-container">
+    <img id="myImage" src="https://i.gifer.com/4A5.gif" alt="Image">
+</div>
+<script>
+    function hideImage() {
+        var image = document.getElementById("myImage");
+        image.style.display = "block";
+    }
+    
+    // Check if a message with "success" tag exists
+    var successMessage = document.querySelector('.messages .text-success');
+    if (successMessage) {
+        setTimeout(hideImage, 30); // Call hideImage after 3 seconds if a success message exists
+    }
+    </script>
+    
+    <h3>Objective Questions</h3>
+    {% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+        <li{% if message.tags %}
+            class="{% if message.tags == 'success' %}text-success{% elif message.tags == 'warning' %}text-warning{% endif %}"
+            {% endif %}>{{ message }}</li>
         {% endfor %}
-</ul>
-{% endif %}
-
+    </ul>
+    {% endif %}
+    
 
 <form action="/libra/{{a.id}}" method="post">
     {% csrf_token %}

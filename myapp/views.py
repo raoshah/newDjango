@@ -8,21 +8,38 @@ from PIL import Image
 from django.contrib import messages
 from django.conf import settings
 import razorpay, logging, json, io
+from nsetools import Nse
+from pprint import pprint
 
 
 
 def home(request):
+    from nsetools import Nse
+    from pprint import pprint
+    nse = Nse()
+    q = nse.get_index_quote("nifty 50")
+
     lib = library.objects.all()
     post = Post.objects.all()
     ans = Question.objects.all()
     z = 1
     a = ans[0]
-    l = lib[0]
-    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l": l } )
+    l = lib[0] 
+    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l": l, "index": q } )
 
 def videos(request):
     videos = Youtube.objects.all()
     return render(request, "myapp/videos.html", { "videos": videos})
+
+def libr(request):
+    lib = library.objects.all()
+    l = lib[0]
+    return render(request, "myapp/libr.html", {"lib":lib, "l": l})
+
+def rjgk(request):
+    ans = Question.objects.all()
+    a = ans[0]
+    return render(request, "myapp/rjgk.html", { "a":a })
 
 def libra(request, id):
     try:
@@ -203,3 +220,15 @@ def photo_to_pdf(request):
     else:
         form = PhotoUploadForm()
     return render(request, 'myapp/upload.html', {"form": form})
+
+
+
+@csrf_exempt  # For development purposes only, remove this in production.
+def get_suggestions(request):
+    # Logic to fetch suggestions based on user input
+    user_input = request.GET.get('term', '')
+    user = Chat.objects.all()
+    suggestions = [i.username for i in user]  # Replace with your suggestions logic
+    
+    # Return suggestions as JSON
+    return JsonResponse(suggestions, safe=False)

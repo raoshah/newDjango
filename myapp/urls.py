@@ -18,4 +18,7 @@ urlpatterns = [
     path ('payment/<str:order_id>,<int:amount>,<str:description>/', views.payment_view, name='payment_view'),
     path ('verify-payment/', views.verify_payment, name='verify_payment'),
     path ('upload/', views.photo_to_pdf, name='upload'),
+    path ('get_suggestions/', views.get_suggestions, name='get_suggestions'),
+    path ('libr/', views.libr, name='libr'),
+    path ('rjgk/', views.rjgk, name='rjgk'),
 ]

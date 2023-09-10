@@ -1,0 +1,34 @@
+{% extends 'myapp/layout.html' %}
+
+{% block body %}
+
+<form action="/libra/1" method="post">
+    {% csrf_token %}
+    <p style="background-color: cornsilk;">Library Science Quiz {{ l.id }}: </p>
+    <h4 style="background-color: whitesmoke; font-size: large; margin: 1%;"> {{ l.que }}</h4>
+    <div class="options-container">
+        <div class="column">
+            <label>
+                <input type="radio" name="a" value="{{l.a}}">
+                {{l.a}}
+            </label>
+            <label>
+                <input type="radio" name="a" value="{{l.b}}">
+                {{l.b}}
+            </label>
+        </div>
+        <div class="column">
+            <label>
+                <input type="radio" name="a" value="{{l.c}}">
+                {{l.c}}
+            </label>
+            <label>
+                <input type="radio" name="a" value="{{l.d}}">
+                {{l.d}}
+            </label>
+        </div>
+    </div>
+    <input type="submit" value="Submit">
+</form>
+    
+{% endblock %}

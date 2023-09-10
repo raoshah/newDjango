@@ -1,64 +1,34 @@
 {% extends 'myapp/layout.html' %}
-
+{% block head %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script>
+        $(function() {
+            $("#autocomplete-input").autocomplete({
+                source: '/get_suggestions/',  // URL to fetch suggestions from
+                minLength: 2,  // Minimum length of user input before fetching suggestions
+            });
+        });
+    </script>
+{% endblock %}
 {% block body %}
-    <h3>Objective Questions :</h3>
-    <form action="/libra/{{z}}" method="post">
-        {% csrf_token %}
-        <p style="background-color: cornsilk;">Library Science Quiz {{ l.id }}: </p>
-        <h4 style="background-color: whitesmoke; font-size: large; margin: 1%;"> {{ l.que }}</h4>
-        <div class="options-container">
-            <div class="column">
-                <label>
-                    <input type="radio" name="a" value="{{l.a}}">
-                    {{l.a}}
-                </label>
-                <label>
-                    <input type="radio" name="a" value="{{l.b}}">
-                    {{l.b}}
-                </label>
-            </div>
-            <div class="column">
-                <label>
-                    <input type="radio" name="a" value="{{l.c}}">
-                    {{l.c}}
-                </label>
-                <label>
-                    <input type="radio" name="a" value="{{l.d}}">
-                    {{l.d}}
-                </label>
-            </div>
-        </div>
-        <input type="submit" value="Submit">
-    </form>
-    <form action="/react/{{z}}" method="post">
-        {% csrf_token %}
-        <p style="background-color: cornsilk;">Rajasthan GK Quiz </p>
-        <h4 style="background-color: whitesmoke; font-size: large; margin: 1%;">No.{{ a.id }}: {{ a.que }}</h4>
-        <div class="options-container">
-            <div class="column">
-                <label>
-                    <input type="radio" name="a" value="{{a.a}}">
-                    {{a.a}}
-                </label>
-                <label>
-                    <input type="radio" name="a" value="{{a.b}}">
-                    {{a.b}}
-                </label>
-            </div>
-            <div class="column">
-                <label>
-                    <input type="radio" name="a" value="{{a.c}}">
-                    {{a.c}}
-                </label>
-                <label>
-                    <input type="radio" name="a" value="{{a.d}}">
-                    {{a.d}}
-                </label>
-            </div>
-        </div>
-        <input type="submit" value="Submit">
-    </form>
+  
+<div class="qus">
+    <ui style="margin: 2%;"><a style="text-decoration: none; font-style: italic;" href="{% url 'libr' %}"></a></ul>
+        <ui style="margin: 2%;"><a style="text-decoration: none; font-style: italic;" href="{% url 'libr' %}"><img src="/media/images/lib.png" alt="logo" style="width: 90%;"></a></ul>
+            <h3 style="text-align: center;">Library Science Quiz</h3>
+</div>
     
+    <div class="qus">
+            <ui style="margin: 2%;"><a style="text-decoration: none; font-style: italic;" href="{% url 'rjgk' %}"><img src="/media/images/rjgk.png" alt="logo" style="width: 90%;"></a></ul>
+    </div>
+        
+    
+    
+
+    
+
 
     <h3>Posts</h3>
     {% for posts in post %}
@@ -72,6 +42,16 @@
 
 
 
-
-
+    <div>
+        <label for="autocomplete-input">Search:</label>
+        <input id="autocomplete-input">
+    </div>
+    <div class="stock" >
+        <h1>
+            {{ index.index}}
+            <p>
+                {{ index.last }}
+            </p>
+        </h1>
+    </div>
 {% endblock %}

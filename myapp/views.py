@@ -14,10 +14,8 @@ from pprint import pprint
 
 
 def home(request):
-    from nsetools import Nse
-    from pprint import pprint
-    nse = Nse()
-    q = nse.get_index_quote("nifty 50")
+    # nse = Nse()
+    # q = nse.get_index_quote("nifty 50")
 
     lib = library.objects.all()
     post = Post.objects.all()
@@ -25,7 +23,7 @@ def home(request):
     z = 1
     a = ans[0]
     l = lib[0] 
-    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l": l, "index": q } )
+    return render(request, "myapp/home.html", { "post": post, "z": z, "a": a, "lib":lib, "l": l} )
 
 def videos(request):
     videos = Youtube.objects.all()
